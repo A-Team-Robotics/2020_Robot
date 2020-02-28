@@ -45,6 +45,11 @@ public class Shooter extends SubsystemBase {
     motor2.set(-Constants.SHOOTER_SPEED);
   }
 
+  public void stop() {
+    motor1.set(0);
+    motor2.set(0);
+  }
+
   /**
    * Get the speed of motor 1.
    * @return The speed of motor 1.

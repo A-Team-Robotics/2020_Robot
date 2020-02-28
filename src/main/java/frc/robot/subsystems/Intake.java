@@ -101,19 +101,30 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Spins the front intake to the given speed.
-   * @param speed The speed to spin the intake (from 0 to 1).
+   * Spins the front intake.
    */
-  public void spinFrontIntake(double speed) {
-    frontMotor.set(speed);
+  public void spinFrontIntake() {
+    frontMotor.set(Constants.INTAKE_SPEED);
   }
 
   /**
-   * Spins the back intake to the given speed.
-   * @param speed The speed to spin the intake (from 0 to 1).
+   * Spins the back intake.
    */
-  public void spinBackIntake(double speed) {
-    backMotor.set(speed);
+  public void spinBackIntake() {
+    backMotor.set(Constants.INTAKE_SPEED);
+  }
+
+  /**
+   * Spins the front intake backwards (used for discharging).
+   */
+  public void dischargeFrontIntake() {
+    frontMotor.set(-Constants.INTAKE_SPEED);
+  }
+  /**
+   * Spins the back intake backwards (used for discharging).
+   */
+  public void dischargeBackIntake() {
+    backMotor.set(-Constants.INTAKE_SPEED);
   }
 
   /**

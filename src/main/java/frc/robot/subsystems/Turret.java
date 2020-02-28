@@ -45,10 +45,10 @@ public class Turret extends SubsystemBase {
    * @param speed The speed to turn (from 0 to 1).
    */
   public void turn(double speed) {
-    if(speed > 0 && !getRightLimitSwitch()) {
+    if(speed < 0 && (getPosition() <= Constants.TURRET_MAX_RIGHT || !getRightLimitSwitch())) {
       stop();
     }
-    else if(speed < 0 && !getLeftLimitSwitch()) {
+    else if(speed > 0 && (getPosition() >= Constants.TURRET_MAX_LEFT || !getLeftLimitSwitch())) {
       stop();
     }
     else {
@@ -65,13 +65,23 @@ public class Turret extends SubsystemBase {
 
     if(position > middle) {
       do {
-        turn(-Constants.TURRET_SPIN_SPEED / 2);
+        if(Math.abs(getPosition()) < 2000) {
+          turn(-Constants.TURRET_CENTER_SPEED);
+        }
+        else {
+          turn(-Constants.TURRET_CENTER_SPEED_FAST);
+        }
       }
       while(getPosition() > middle);
     }
     else if(position < middle) {
       do {
-        turn(Constants.TURRET_SPIN_SPEED / 2);
+        if(Math.abs(getPosition()) < 2000) {
+          turn(Constants.TURRET_CENTER_SPEED);
+        }
+        else {
+          turn(Constants.TURRET_CENTER_SPEED_FAST);
+        }
       }
       while(getPosition() < middle);
     }
@@ -94,10 +104,10 @@ public class Turret extends SubsystemBase {
    */
   public void turnTurret(XboxController controller) {
     if(controller.getYButton() && getRightLimitSwitch()) {
-      turn(Constants.TURRET_SPIN_SPEED);
+      turn(-Constants.TURRET_SPIN_SPEED);
     }
     else if(controller.getXButton() && getLeftLimitSwitch()) {
-      turn(-Constants.TURRET_SPIN_SPEED);
+      turn(Constants.TURRET_SPIN_SPEED);
     }
     else {
       stop();

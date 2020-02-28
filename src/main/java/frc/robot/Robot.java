@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commandGroups.*;
@@ -44,6 +45,7 @@ public class Robot extends TimedRobot {
   public static boolean cancelSeekAndFollow;
   public static boolean isSeekingTurret;
   public static boolean intakeOn;
+  public static boolean shooting;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -52,8 +54,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    m_oi = new OI();
+    // autonomous chooser on the dashboard.    
     driveTrain = DriveTrain.getDriveTrain();
     limelight = Camera.getCamera();
     turret = Turret.getTurret();
@@ -63,6 +64,7 @@ public class Robot extends TimedRobot {
     shooter = Shooter.getShooter();
     verticalIntake = VerticalIntake.getVerticalIntake();
     spinner = Spinner.getSpinner();
+    m_oi = new OI();
 
     cancelSeekAndFollow = false;
 
@@ -108,7 +110,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_autonomousCommand = new AutonomousDriving();
+    //m_autonomousCommand = new AutonomousDriving();
+    new WarmUpShooter().schedule();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -144,9 +147,7 @@ public class Robot extends TimedRobot {
     driveTrain.manualDrive(m_oi.getControllerInstant());
     turret.turnTurret(m_oi.getControllerInstant());
 
-    System.out.println("Turret position: " + turret.getPosition());
-
-    XboxController instant = m_oi.getControllerInstant();
+    XboxController instant = OI.getControllerInstant();
 
     if(instant.getPOV() > 0 && instant.getPOV() < 180) {
       if(!isSeeking) {
@@ -191,6 +192,7 @@ public class Robot extends TimedRobot {
     if(isSeekingTurret) new Target_TurretFollow().schedule();
     if(isFollowing) new FollowObject(10).schedule();
     if(intakeOn) new IntakeBalls().schedule();
+    if(shooting) new WarmUpShooter().schedule();
   }
 
   @Override

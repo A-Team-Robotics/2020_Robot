@@ -35,11 +35,11 @@ public class IntakeBalls extends CommandBase {
   @Override
   public void execute() {
     if(drive.getVelocity() > 0) {
-      intake.spinFrontIntake(-Constants.INTAKE_SPEED);
+      intake.spinFrontIntake();
       intake.brakeBack();
     }
     else if(drive.getVelocity() < 0) {
-      intake.spinBackIntake(-Constants.INTAKE_SPEED);
+      intake.spinBackIntake();
       intake.brakeFront();
     }
 

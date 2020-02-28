@@ -39,6 +39,10 @@ public final class Constants {
     public static final double TURRET_AIM_SPEED_SLOW = 0.15;
     public static final double TURRET_AIM_CLOSE = 7.0;
     public static final double TURRET_SPAN = -4422 + 3348;
+    public static final double TURRET_CENTER_SPEED_FAST = 0.55;
+    public static final double TURRET_CENTER_SPEED = 0.15;
+    public static final int TURRET_MAX_RIGHT = -13450;
+    public static final int TURRET_MAX_LEFT = -TURRET_MAX_RIGHT;
     public static double lastx;
 
     // Intake
@@ -51,6 +55,7 @@ public final class Constants {
 
     // Shooter
     public static final double SHOOTER_SPEED = 0.8;
+    public static final int SHOOTER_WARMUP_TIME = 2;
 
     // Spinner
     public static final double SPINNER_REVOLUTION_SPEED = 0.6;

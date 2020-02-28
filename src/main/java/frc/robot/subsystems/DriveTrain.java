@@ -94,7 +94,8 @@ public class DriveTrain extends SubsystemBase {
    * @param controller The Xbox Controller.
    */
   public void manualDrive(XboxController controller) {
-    drive.arcadeDrive(controller.getRawAxis(1) * -1, controller.getX());
+    System.out.println(controller.getRawAxis(1) + " - " + controller.getX() + 0.07086614519357681);
+    drive.arcadeDrive(controller.getRawAxis(1), controller.getX() + 0.07086614519357681);
   }
 
   /**
