@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project Allouette_JustinEdition)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Allouette_JustinEdition",
+    "language": "java"
+  }
+]
