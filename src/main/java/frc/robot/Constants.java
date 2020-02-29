@@ -59,14 +59,17 @@ public final class Constants {
     public static final int SHOOTER_WARMUP_TIME = 2;
 
     // Spinner
-    public static final double SPINNER_REVOLUTION_SPEED = 0.6;
-    public static final double SPINNER_COLOR_SEEK_SPEED = 0.4;
+    public static final double SPINNER_REVOLUTION_SPEED = 0.2;
+    public static final double SPINNER_COLOR_SEEK_SPEED = 0.1;
 
     // Hood
     public static final double HOOD_SPEED = 0.8;
     public static final int HOOD_MAXIMUM_POSITION = 1216;
     public static final int HOOD_MAXIMUM_ANGLE = 45;
 
+    // Proximity Sensor
+    public static final int PROXIMITY_CENSOR_ID = 2;
+    public static final double PROXIMITY_VOLTS_TO_DISTANCE_FEET = 1.0;
 
     // Speed controller groups.
     public static final boolean LEFT_MOTORS_INVERTED = false;

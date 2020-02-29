@@ -43,6 +43,10 @@ public class ColorSensor extends SubsystemBase {
     m_colorMatcher.addColorMatch(kRedTarget);
   }
 
+  /**
+   * Gets the color sensor object.
+   * @return The color sensor object.
+   */
   public static ColorSensor getColorSensor() {
     if(colorSensor == null) {
       colorSensor = new ColorSensor();
@@ -50,6 +54,10 @@ public class ColorSensor extends SubsystemBase {
     return colorSensor;
   }
 
+  /**
+   * Metch the color detected by the color sensor to the acceptable color values.
+   * @return The color detected by the color sensor.
+   */
   public String getMatchedColor() {
     Color colorRead = m_colorSensor.getColor();
     m_colorMatcher.setConfidenceThreshold(0);

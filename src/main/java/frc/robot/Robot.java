@@ -49,7 +49,9 @@ public class Robot extends TimedRobot {
   public static boolean intakeOn;
   public static boolean intakeFrontOn;
   public static boolean intakeBackOn;
- // public static boolean shooting;
+  public static boolean spinRevolving;
+  public static boolean spinColoring;
+  // public static boolean shooting;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -149,6 +151,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     SmartDashboard.putBoolean("Turret Follow", isSeekingTurret);
+    SmartDashboard.putBoolean("Spinner Revolving", spinRevolving);
+    SmartDashboard.putBoolean("Spinner Finding Color", spinColoring);
     driveTrain.manualDrive(OI.getControllerInstant());
     turret.turnTurret(OI.getControllerInstant());
     limelight.turnOnLED();
@@ -182,13 +186,18 @@ public class Robot extends TimedRobot {
       turret.center();
     }
     double throttle = OI.getJoystickInstance().getThrottle();
-    hood.moveHood(hood.getAngleBySpeed(throttle));
+    // hood.moveHood(hood.getAngleBySpeed(throttle));
 
-    System.out.println(hood.getPosition());
-
-    if(isFollowing) new FollowObject(10).schedule();
+    // System.out.println(hood.getPosition());
+    
     //if(shooting) new WarmUpShooter().schedule();
+    if(isFollowing) new FollowObject(10).schedule();
     if(isSeekingTurret) new AimTurretSmart(true).schedule();
+    if(intakeOn) new IntakeBalls().schedule();
+    if(intakeFrontOn) new IntakeFront().schedule();
+    if(intakeBackOn) new IntakeBack().schedule();
+    if(spinRevolving) new SpinnerRevolutions().schedule();
+    if(spinColoring) new SpinToColor().schedule();
 /* 
     if(hood.getPosition() >= -50 && hood.getPosition() <= 50) {
       hood.initialize();
@@ -207,11 +216,5 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-    // shooter.spinShooter();
-    /*
-    verticalIntake.spin();
-    intake.spinBackIntake(Constants.INTAKE_SPEED);
-    intake.spinFrontIntake(Constants.INTAKE_SPEED);
-    */
   }
 }

@@ -72,7 +72,7 @@ public class Hood extends SubsystemBase {
   }
 
   /**
-   * 
+   * Move the hood to a specific angle.
    */
   public void moveHood(int degrees) {
     double currentAngle = positionToAngle(getPosition());
@@ -92,11 +92,11 @@ public class Hood extends SubsystemBase {
         //motor.set(ControlMode.Position,angleToPosition(degrees));
       }
       else {
-        HoldPos();
+        stop();
       }
     }
     else {
-      HoldPos();
+      stop();
     }
   }
 

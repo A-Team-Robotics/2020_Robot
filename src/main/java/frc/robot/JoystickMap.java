@@ -16,4 +16,6 @@ public class JoystickMap {
     public static final int INTAKE_BUTTON = 4;
     public static final int INTAKE_FRONT_BUTTON = 6;
     public static final int INTAKE_BACK_BUTTON = 5;
+    public static final int SPINNER_REVOLVE_BUTTON = 11;
+    public static final int SPINNER_COLOR_BUTTON = 12;
 }

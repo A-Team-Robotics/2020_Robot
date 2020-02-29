@@ -8,18 +8,24 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 
 public class Spinner extends SubsystemBase {
   private static Spinner spinner;
   private WPI_TalonSRX motor;
+  private AnalogInput proximityCensor;
   /**
    * Creates a new Spinner.
    */
   public Spinner() {
     motor = new WPI_TalonSRX(Constants.MOTOR_SPINNER_ID);
+    proximityCensor = new AnalogInput(Constants.PROXIMITY_CENSOR_ID);
+    motor.setNeutralMode(NeutralMode.Brake);
   }
 
   /**
@@ -53,6 +59,14 @@ public class Spinner extends SubsystemBase {
    */
   public void brake() {
     motor.set(0);
+  }
+
+  public double getCensorVoltage() {
+    return proximityCensor.getVoltage();
+  }
+
+  public double getCensorReading() {
+    return getCensorVoltage() * Constants.PROXIMITY_VOLTS_TO_DISTANCE_FEET;
   }
 
   @Override

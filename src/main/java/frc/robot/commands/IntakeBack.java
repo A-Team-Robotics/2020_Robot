@@ -25,17 +25,12 @@ public class IntakeBack extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(Robot.intakeBackOn) {
-      Robot.intakeBackOn = false;
-    }
-    else {
-      Robot.intakeBackOn = true;
-    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    intake.spinBackIntake();
   }
 
   // Called once the command ends or is interrupted.
