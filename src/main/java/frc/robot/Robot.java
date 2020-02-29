@@ -45,7 +45,9 @@ public class Robot extends TimedRobot {
   public static boolean cancelSeekAndFollow;
   public static boolean isSeekingTurret;
   public static boolean intakeOn;
-  public static boolean shooting;
+  public static boolean intakeFrontOn;
+  public static boolean intakeBackOn;
+ // public static boolean shooting;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -144,8 +146,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     SmartDashboard.putBoolean("Turret Follow", isSeekingTurret);
-    driveTrain.manualDrive(m_oi.getControllerInstant());
-    turret.turnTurret(m_oi.getControllerInstant());
+    driveTrain.manualDrive(OI.getControllerInstant());
+    turret.turnTurret(OI.getControllerInstant());
+    limelight.turnOnLED();
 
     XboxController instant = OI.getControllerInstant();
 
@@ -172,27 +175,12 @@ public class Robot extends TimedRobot {
     else if(instant.getPOV() == 180) {
       cancelSeekAndFollow = true;
     }
-    
-    if(instant.getAButtonPressed()) {
-      // new AimTurret().schedule();
-      if(isSeekingTurret) isSeekingTurret = false;
-      else {
-        Constants.lastx = 0;
-        isSeekingTurret = true;
-      }
-    }
     if(instant.getBButton()) {
       turret.center();
     }
-    if(instant.getBackButtonPressed()) {
-      if(intakeOn) intakeOn = false;
-      else intakeOn = true;
-    }
-
-    if(isSeekingTurret) new Target_TurretFollow().schedule();
     if(isFollowing) new FollowObject(10).schedule();
-    if(intakeOn) new IntakeBalls().schedule();
-    if(shooting) new WarmUpShooter().schedule();
+    //if(shooting) new WarmUpShooter().schedule();
+    if(isSeekingTurret) new AimTurretSmart(true).schedule();
   }
 
   @Override

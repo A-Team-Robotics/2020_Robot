@@ -29,7 +29,7 @@ public class StopShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.shooting = false;
+    //Robot.shooting = false;
     shooter.stop();
     intake.brakeBack();
     intake.brakeFront();

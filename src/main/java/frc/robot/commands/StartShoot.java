@@ -29,7 +29,7 @@ public class StartShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.shooting = true;
+    //Robot.shooting = true;
     intake.initialize();
   }
 

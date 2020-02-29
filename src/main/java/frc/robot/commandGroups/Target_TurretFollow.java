@@ -20,6 +20,6 @@ public class Target_TurretFollow extends ParallelCommandGroup {
   public Target_TurretFollow() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    super(new AimTurretSmart());
+    super(new AimTurretSmart(true));
   }
 }

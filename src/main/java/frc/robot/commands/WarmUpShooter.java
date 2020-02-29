@@ -29,7 +29,7 @@ public class WarmUpShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Robot.shooting = true;
+    //Robot.shooting = true;
     startTime = (int) System.currentTimeMillis();
   }
 

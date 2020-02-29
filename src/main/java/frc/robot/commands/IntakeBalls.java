@@ -29,6 +29,12 @@ public class IntakeBalls extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if(Robot.intakeOn) {
+      Robot.intakeOn = false;
+    }
+    else {
+      Robot.intakeOn = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

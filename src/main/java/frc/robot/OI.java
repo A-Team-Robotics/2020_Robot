@@ -21,11 +21,23 @@ public class OI {
     private Button buttonPOV;
 
     public JoystickButton shoot = new JoystickButton(joystick, JoystickMap.TRIGGER);
+    public JoystickButton aimTurret = new JoystickButton(joystick, JoystickMap.AIM_TURRET_BUTTON);
+    public JoystickButton intake = new JoystickButton(joystick, JoystickMap.INTAKE_BUTTON);
+    public JoystickButton intakeFront = new JoystickButton(joystick, JoystickMap.INTAKE_FRONT_BUTTON);
+    public JoystickButton intakeBack = new JoystickButton(joystick, JoystickMap.INTAKE_BACK_BUTTON);
 
 
     public OI() {
         shoot.whenHeld(new Shoot(), true);
         shoot.whenReleased(new StopShooter());
+
+        aimTurret.whenPressed(new SetIsSeekingTurret());
+
+        intake.whenPressed(new IntakeBalls());
+
+        intakeFront.whenPressed(new IntakeFront());
+
+        intakeBack.whenPressed(new IntakeBack());
     }
 
     public static XboxController getControllerInstant() {

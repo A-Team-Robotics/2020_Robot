@@ -18,20 +18,25 @@ public class AimTurretSmart extends CommandBase {
   private Turret turret;
   private double x;
   private double lastx;
+  private boolean tac;
   /**
    * Creates a new AimTurret.
    */
-  public AimTurretSmart() {
+  public AimTurretSmart(boolean trackAndCenter) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.turret, Robot.limelight);
     turret = Turret.getTurret();
     camera = Camera.getCamera();
+    tac = trackAndCenter;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     lastx = Constants.lastx;
+    if(!tac && Robot.isSeekingTurret) {
+      Robot.isSeekingTurret = false;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,26 +45,46 @@ public class AimTurretSmart extends CommandBase {
     x = camera.getX();
     if(x > 0) {
       if(x <= Constants.TURRET_AIM_CLOSE) {
-        turret.turn(Constants.TURRET_AIM_SPEED_SLOW);
+        if(x <= Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+          turret.stop();
+        }
+        else {
+          turret.turn(-Constants.TURRET_AIM_SPEED_SLOW);
+        }
       }
       else {
-        turret.turn(Constants.TURRET_AIM_SPEED);
+        if(x <= Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+          turret.stop();
+        }
+        else {
+          turret.turn(-Constants.TURRET_AIM_SPEED);
+        }
       }
     }
     else if(x < 0) {
       if(x >= -Constants.TURRET_AIM_CLOSE) {
-        turret.turn(-Constants.TURRET_AIM_SPEED_SLOW);
+        if(x >= -Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+          turret.stop();
+        }
+        else {
+          turret.turn(Constants.TURRET_AIM_SPEED_SLOW);
+        }
       }
       else {
-        turret.turn(-Constants.TURRET_AIM_SPEED);
+        if(x >= -Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+          turret.stop();
+        }
+        else {
+          turret.turn(Constants.TURRET_AIM_SPEED);
+        }
       }
     }
     else {
       if(lastx > 0) {
-        turret.turn(Constants.TURRET_AIM_SPEED);
+        turret.turn(-Constants.TURRET_AIM_SPEED);
       }
       else {
-        turret.turn(-Constants.TURRET_AIM_SPEED);
+        turret.turn(Constants.TURRET_AIM_SPEED);
       }
     }
 
@@ -78,12 +103,12 @@ public class AimTurretSmart extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(x > -Constants.LIMELIGHT_X_TURRET_FORGIVENESS && x < Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+    if(!tac && x > -Constants.LIMELIGHT_X_TURRET_FORGIVENESS && x < Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
       if(camera.getArea() != 0) {
         return true;
       }
     }
-    if(!Robot.isSeekingTurret) {
+    if(tac && !Robot.isSeekingTurret) {
       return true;
     }
     return false;

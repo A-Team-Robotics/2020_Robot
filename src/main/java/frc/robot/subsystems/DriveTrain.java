@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.Constants;
 import frc.robot.commands.TurnAngle;
@@ -94,8 +95,15 @@ public class DriveTrain extends SubsystemBase {
    * @param controller The Xbox Controller.
    */
   public void manualDrive(XboxController controller) {
-    System.out.println(controller.getRawAxis(1) + " - " + controller.getX() + 0.07086614519357681);
-    drive.arcadeDrive(controller.getRawAxis(1), controller.getX() + 0.07086614519357681);
+    drive.arcadeDrive(controller.getRawAxis(1), controller.getX());
+  }
+
+  /**
+   * Drive the robot with the controller (used in teleop driving).
+   * @param joystick The Joystick Controller.
+   */
+  public void manualDrive(Joystick joystick) {
+    drive.arcadeDrive(joystick.getY(), joystick.getX());
   }
 
   /**

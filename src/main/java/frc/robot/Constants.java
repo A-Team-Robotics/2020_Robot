@@ -30,6 +30,7 @@ public final class Constants {
     public static final int MOTOR_SHOOTER_2_ID = 6;
     public static final int MOTOR_VERTICAL_INTAKE_ID = 10;
     public static final int MOTOR_SPINNER_ID = 11;
+    public static final int MOTOR_HOOD_ID = 4;
 
     // Turret
     public static final double TURRET_SPIN_SPEED = 0.6;
@@ -60,6 +61,9 @@ public final class Constants {
     // Spinner
     public static final double SPINNER_REVOLUTION_SPEED = 0.6;
     public static final double SPINNER_COLOR_SEEK_SPEED = 0.4;
+
+    // Hood
+    public static final double HOOD_SPEED = 0.3;
 
     // Speed controller groups.
     public static final boolean LEFT_MOTORS_INVERTED = false;
@@ -97,7 +101,7 @@ public final class Constants {
     // Limelight.
     public static final int LIMELIGHT_PIPELINE_ID = 0;
     public static final double LIMELIGHT_X_FORGIVENESS = 0.1;
-    public static final double LIMELIGHT_X_TURRET_FORGIVENESS = 0.5;
+    public static final double LIMELIGHT_X_TURRET_FORGIVENESS = 1;
     public static final double LIMELIGHT_X_CLOSE = 2;
     public static final double LIMELIGHT_X_CLOSE_TURN_SPEED = 0.45;
     public static final double LIMELIGHT_X_CENTER_SPEED = 0.51;

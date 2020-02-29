@@ -8,6 +8,7 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.AimTurretSmart;
 import frc.robot.commands.CenterToTarget;
 import frc.robot.commands.WarmUpShooter;
 
@@ -21,6 +22,6 @@ public class SetupShooter extends ParallelCommandGroup {
   public SetupShooter() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    super(new WarmUpShooter(), new CenterToTarget());
+    super(new WarmUpShooter(), new AimTurretSmart(false));
   }
 }

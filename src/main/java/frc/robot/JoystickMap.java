@@ -12,4 +12,8 @@ package frc.robot;
  */
 public class JoystickMap {
     public static final int TRIGGER = 1;
+    public static final int AIM_TURRET_BUTTON = 3;
+    public static final int INTAKE_BUTTON = 4;
+    public static final int INTAKE_FRONT_BUTTON = 6;
+    public static final int INTAKE_BACK_BUTTON = 5;
 }
