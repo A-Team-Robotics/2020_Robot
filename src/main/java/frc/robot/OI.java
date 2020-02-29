@@ -26,7 +26,6 @@ public class OI {
     public JoystickButton intakeFront = new JoystickButton(joystick, JoystickMap.INTAKE_FRONT_BUTTON);
     public JoystickButton intakeBack = new JoystickButton(joystick, JoystickMap.INTAKE_BACK_BUTTON);
 
-
     public OI() {
         shoot.whenHeld(new Shoot(), true);
         shoot.whenReleased(new StopShooter());

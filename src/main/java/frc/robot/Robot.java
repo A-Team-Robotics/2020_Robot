@@ -39,6 +39,8 @@ public class Robot extends TimedRobot {
   public static Shooter shooter;
   public static VerticalIntake verticalIntake;
   public static Spinner spinner;
+  private int hpos;
+  public static Hood hood;
 
   public static boolean isSeeking;
   public static boolean isFollowing;
@@ -66,6 +68,7 @@ public class Robot extends TimedRobot {
     shooter = Shooter.getShooter();
     verticalIntake = VerticalIntake.getVerticalIntake();
     spinner = Spinner.getSpinner();
+    hood = Hood.getHood();
     m_oi = new OI();
 
     cancelSeekAndFollow = false;
@@ -178,9 +181,19 @@ public class Robot extends TimedRobot {
     if(instant.getBButton()) {
       turret.center();
     }
+    double throttle = OI.getJoystickInstance().getThrottle();
+    hood.moveHood(hood.getAngleBySpeed(throttle));
+
+    System.out.println(hood.getPosition());
+
     if(isFollowing) new FollowObject(10).schedule();
     //if(shooting) new WarmUpShooter().schedule();
     if(isSeekingTurret) new AimTurretSmart(true).schedule();
+/* 
+    if(hood.getPosition() >= -50 && hood.getPosition() <= 50) {
+      hood.initialize();
+    }
+    */
   }
 
   @Override

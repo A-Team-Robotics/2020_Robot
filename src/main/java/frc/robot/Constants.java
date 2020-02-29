@@ -63,7 +63,10 @@ public final class Constants {
     public static final double SPINNER_COLOR_SEEK_SPEED = 0.4;
 
     // Hood
-    public static final double HOOD_SPEED = 0.3;
+    public static final double HOOD_SPEED = 0.8;
+    public static final int HOOD_MAXIMUM_POSITION = 1216;
+    public static final int HOOD_MAXIMUM_ANGLE = 45;
+
 
     // Speed controller groups.
     public static final boolean LEFT_MOTORS_INVERTED = false;
@@ -114,4 +117,9 @@ public final class Constants {
     public static final double LIMELIGHT_DISTANCE_ACCEPTABLE = 0.01;
     public static final double LIMELIGHT_MINIMUM_VIEWABLE_AREA = 0.38;
     public static final double K = 14.666666666666667 * Math.sqrt(1.723);
+
+    // Field
+    public static final int HEIGHT_OF_SHOOT_INCHES = 42;
+    public static final int HEIGHT_OF_TARGET_INCHES = 96;
+    public static final int HEIGHT_TO_SHOOT_INCHES = HEIGHT_OF_TARGET_INCHES - HEIGHT_OF_SHOOT_INCHES;
 }
