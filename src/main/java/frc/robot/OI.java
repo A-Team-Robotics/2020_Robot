@@ -25,8 +25,11 @@ public class OI {
     public JoystickButton intake = new JoystickButton(joystick, JoystickMap.INTAKE_BUTTON);
     public JoystickButton intakeFront = new JoystickButton(joystick, JoystickMap.INTAKE_FRONT_BUTTON);
     public JoystickButton intakeBack = new JoystickButton(joystick, JoystickMap.INTAKE_BACK_BUTTON);
+    public JoystickButton intakeJog = new JoystickButton(joystick, JoystickMap.INTAKE_JOG_BUTTON);
     public JoystickButton spinRevolution = new JoystickButton(joystick, JoystickMap.SPINNER_REVOLVE_BUTTON);
     public JoystickButton spinColor = new JoystickButton(joystick, JoystickMap.SPINNER_COLOR_BUTTON);
+    public JoystickButton climbUp = new JoystickButton(joystick, JoystickMap.CLIMB_UP_BUTTON);
+    public JoystickButton climbDown = new JoystickButton(joystick, JoystickMap.CLIMB_DOWN_BUTTON);
 
     public OI() {
         shoot.whenHeld(new Shoot(), true);
@@ -35,13 +38,16 @@ public class OI {
         aimTurret.whenPressed(new SetRobotBooleans(0));
 
         intake.whenPressed(new SetRobotBooleans(1));
-
         intakeFront.whenPressed(new SetRobotBooleans(2));
-
         intakeBack.whenPressed(new SetRobotBooleans(3));
+        intakeJog.whenPressed(new SetRobotBooleans(6));
 
         spinRevolution.whenPressed(new SetRobotBooleans(4));
         spinColor.whenPressed(new SetRobotBooleans(5));
+
+        climbUp.whenHeld(new ClimbUp());
+        climbUp.whenReleased(new SetRobotBooleansHeld(1));
+        climbDown.whenHeld(new ClimbDown());
     }
 
     public static XboxController getControllerInstant() {

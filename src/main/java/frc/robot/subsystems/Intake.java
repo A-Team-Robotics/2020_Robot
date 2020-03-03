@@ -109,10 +109,24 @@ public class Intake extends SubsystemBase {
   }
 
   /**
+   * Spins the front intake backwards.
+   */
+  public void spinFrontIntakeBackwards() {
+    frontMotor.set(-Constants.INTAKE_SPEED);
+  }
+
+  /**
    * Spins the back intake.
    */
   public void spinBackIntake() {
     backMotor.set(Constants.INTAKE_SPEED);
+  }
+
+  /**
+   * Spins the back intake backwards.
+   */
+  public void spinBackIntakeBackwards() {
+    backMotor.set(-Constants.INTAKE_SPEED);
   }
 
   /**

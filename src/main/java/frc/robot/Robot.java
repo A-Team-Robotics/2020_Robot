@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
   public static Spinner spinner;
   private int hpos;
   public static Hood hood;
+  public static Climb climb;
 
   public static boolean isSeeking;
   public static boolean isFollowing;
@@ -49,8 +50,12 @@ public class Robot extends TimedRobot {
   public static boolean intakeOn;
   public static boolean intakeFrontOn;
   public static boolean intakeBackOn;
+  public static boolean intakeJogOn;
   public static boolean spinRevolving;
   public static boolean spinColoring;
+  public static boolean alreadyRevolving;
+  public static boolean isClimbingUp;
+  public static boolean isClimbingDown;
   // public static boolean shooting;
 
   /**
@@ -71,6 +76,7 @@ public class Robot extends TimedRobot {
     verticalIntake = VerticalIntake.getVerticalIntake();
     spinner = Spinner.getSpinner();
     hood = Hood.getHood();
+    climb = Climb.getClimb();
     m_oi = new OI();
 
     cancelSeekAndFollow = false;
@@ -118,7 +124,7 @@ public class Robot extends TimedRobot {
 
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     //m_autonomousCommand = new AutonomousDriving();
-    new WarmUpShooter().schedule();
+    new AutonomousDriving().schedule();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -189,14 +195,20 @@ public class Robot extends TimedRobot {
     // hood.moveHood(hood.getAngleBySpeed(throttle));
 
     // System.out.println(hood.getPosition());
-    
+
     //if(shooting) new WarmUpShooter().schedule();
     if(isFollowing) new FollowObject(10).schedule();
     if(isSeekingTurret) new AimTurretSmart(true).schedule();
     if(intakeOn) new IntakeBalls().schedule();
     if(intakeFrontOn) new IntakeFront().schedule();
     if(intakeBackOn) new IntakeBack().schedule();
-    if(spinRevolving) new SpinnerRevolutions().schedule();
+    if(intakeJogOn) new IntakeJog().schedule();
+    if(spinRevolving) {
+      if(!alreadyRevolving) {
+        new SpinnerRevolutions().schedule();
+        alreadyRevolving = true;
+      }
+    }
     if(spinColoring) new SpinToColor().schedule();
 /* 
     if(hood.getPosition() >= -50 && hood.getPosition() <= 50) {

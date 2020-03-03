@@ -16,6 +16,7 @@ public class SpinnerRevolutions extends CommandBase {
   ColorSensor colorSensor;
   Spinner spinner;
   int numDetects;
+  int numBolts;
   String colorStart;
   String previousColor;
   /**
@@ -31,8 +32,8 @@ public class SpinnerRevolutions extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
     numDetects = 0;
+    numBolts = 0;
     colorStart = colorSensor.getMatchedColor();
   }
 
@@ -44,8 +45,14 @@ public class SpinnerRevolutions extends CommandBase {
     if(currentColor.equals(colorStart)) {
       if(!currentColor.equals(previousColor)) {
         numDetects++;
-        previousColor = currentColor;
       }
+    }
+    previousColor = currentColor;
+
+    System.out.println(colorStart + " - " + currentColor + ": " + numDetects);
+
+    if(spinner.getCensorReading() != 0 || spinner.getCensorReading() != Double.NaN) {
+      numBolts++;
     }
   }
 
@@ -53,6 +60,8 @@ public class SpinnerRevolutions extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     spinner.brake();
+    Robot.alreadyRevolving = false;
+    Robot.spinRevolving = false;
   }
 
   // Returns true when the command should end.
@@ -65,6 +74,11 @@ public class SpinnerRevolutions extends CommandBase {
     if(numDetects >= 7) {
       return true;
     }
+    /*
+    if(numBolts >= 30) {
+      return true;
+    }
+    */
     return false;
   }
 }

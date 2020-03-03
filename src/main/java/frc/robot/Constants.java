@@ -31,10 +31,12 @@ public final class Constants {
     public static final int MOTOR_VERTICAL_INTAKE_ID = 10;
     public static final int MOTOR_SPINNER_ID = 11;
     public static final int MOTOR_HOOD_ID = 4;
+    public static final int MOTOR_CLIMB_1_ID = 12;
+    public static final int MOTOR_CLIMB_2_ID = 13;
 
     // Turret
     public static final double TURRET_SPIN_SPEED = 0.6;
-    public static final int TURRET_LEFT_LIMIT = 6;
+    public static final int TURRET_LEFT_LIMIT = 3;
     public static final int TURRET_RIGHT_LIMIT = 4;
     public static final double TURRET_AIM_SPEED = 0.5;
     public static final double TURRET_AIM_SPEED_SLOW = 0.15;
@@ -49,7 +51,9 @@ public final class Constants {
     // Intake
     public static final int INTAKE_FRONT_LIMIT_SWITCH = 1;
     public static final int INTAKE_BACK_LIMIT_SWITCH = 0;
-    public static final double INTAKE_SPEED = 1;
+    public static final double INTAKE_SPEED = 0.75;
+    public static final double INTAKE_JOG_FORWARDS_TIME = 1;
+    public static final double INTAKE_JOG_BACKWARDS_TIME = 0.5;
 
     // Vertical intake
     public static final double VERTICAL_INTAKE_SPEED = 1;
@@ -57,19 +61,27 @@ public final class Constants {
     // Shooter
     public static final double SHOOTER_SPEED = 0.8;
     public static final int SHOOTER_WARMUP_TIME = 2;
+    public static final double SHOOTER_VELOCITY = 10;
+    public static final double SHOOT_DISTANCE_FORGIVENESS = 0.5;
+    public static final double SHOOT_ANGLE_FORGIVENESS = 1.5;
+    public static final double SHOOT_DRIVE_SPEED = 0.5;
+    public static final double SHOOT_AIM_SPEED = 0.2;
 
     // Spinner
-    public static final double SPINNER_REVOLUTION_SPEED = 0.2;
-    public static final double SPINNER_COLOR_SEEK_SPEED = 0.1;
+    public static final double SPINNER_REVOLUTION_SPEED = 0.1;
+    public static final double SPINNER_COLOR_SEEK_SPEED = 0.15;
 
     // Hood
-    public static final double HOOD_SPEED = 0.8;
+    public static final double HOOD_SPEED = 0.2;
     public static final int HOOD_MAXIMUM_POSITION = 1216;
     public static final int HOOD_MAXIMUM_ANGLE = 45;
 
     // Proximity Sensor
     public static final int PROXIMITY_CENSOR_ID = 2;
-    public static final double PROXIMITY_VOLTS_TO_DISTANCE_FEET = 1.0;
+    public static final double PROXIMITY_VOLTS_TO_DISTANCE_FEET = 100;
+
+    // Climb
+    public static final double CLIMB_SPEED = 1;
 
     // Speed controller groups.
     public static final boolean LEFT_MOTORS_INVERTED = false;
@@ -119,6 +131,7 @@ public final class Constants {
     public static final double LIMELIGHT_SEEK_SPEED = 0.6;
     public static final double LIMELIGHT_DISTANCE_ACCEPTABLE = 0.01;
     public static final double LIMELIGHT_MINIMUM_VIEWABLE_AREA = 0.38;
+    public static final double LIMELIGHT_DEGREES_RELATIVE_TO_GROUND = 13;
     public static final double K = 14.666666666666667 * Math.sqrt(1.723);
 
     // Field

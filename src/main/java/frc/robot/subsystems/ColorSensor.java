@@ -86,7 +86,7 @@ public class ColorSensor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
     SmartDashboard.putString("Detected_Color", getMatchedColor());
+    SmartDashboard.putNumber("Color_Value", m_colorSensor.getProximity());
   }
 }

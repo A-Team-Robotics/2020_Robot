@@ -85,6 +85,18 @@ public class SetRobotBooleans extends CommandBase {
         }
         break;
       }
+      case 6: {
+        if(!Robot.intakeJogOn) {
+          Robot.intakeJogOn = true;
+          Robot.intakeOn = false;
+          Robot.intakeBackOn = false;
+          Robot.intakeFrontOn = false;
+        }
+        else {
+          Robot.intakeJogOn = false;
+        }
+        break;
+      }
     }
     
   }
