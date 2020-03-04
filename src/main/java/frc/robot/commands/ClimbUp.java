@@ -47,6 +47,9 @@ public class ClimbUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(climb.getTopSwitch()) {
+      return true;
+    }
     if(!Robot.isClimbingUp) {
       return true;
     }

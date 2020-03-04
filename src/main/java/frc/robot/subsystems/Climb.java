@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -16,6 +17,8 @@ public class Climb extends SubsystemBase {
   private static Climb climb;
   private WPI_VictorSPX motor1;
   private WPI_VictorSPX motor2;
+  private DigitalInput bottomSwitch;
+  private DigitalInput topSwitch;
   /**
    * Creates a new Climb.
    */
@@ -25,6 +28,9 @@ public class Climb extends SubsystemBase {
 
     motor1.setNeutralMode(NeutralMode.Brake);
     motor2.setNeutralMode(NeutralMode.Brake);
+
+    bottomSwitch = new DigitalInput(Constants.CLIMB_BOTTOM_SWITCH);
+    topSwitch = new DigitalInput(Constants.CLIMB_TOP_SWITCH);
   }
 
   /**
@@ -60,6 +66,22 @@ public class Climb extends SubsystemBase {
   public void stop() {
     motor1.set(0);
     motor2.set(0);
+  }
+
+  /**
+   * Get the value of the bottom limit switch. If activated/pressed, then it will return true.
+   * @return The value of the bottom limit switch.
+   */
+  public boolean getBottomSwitch() {
+    return bottomSwitch.get();
+  }
+
+  /**
+   * Get the value of the top limit switch. If activated/pressed, then it will return true.
+   * @return The value of the top limit switch.
+   */
+  public boolean getTopSwitch() {
+    return topSwitch.get();
   }
 
   @Override

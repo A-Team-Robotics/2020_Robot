@@ -55,6 +55,8 @@ public class OI {
         climbUp.whenHeld(new ClimbUp());
         climbUp.whenReleased(new SetRobotBooleansHeld(1));
         climbDown.whenHeld(new ClimbDown());
+        climbDown.whenReleased(new SetRobotBooleansHeld(2));
+
 
         /*
         turret0.whenActive(new TurretPosition(Constants.TURRET_0));

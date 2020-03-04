@@ -47,6 +47,10 @@ public class ClimbDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(climb.getBottomSwitch()) {
+      System.out.println("Done.");
+      return true;
+    }
     if(!Robot.isClimbingDown) {
       return true;
     }
