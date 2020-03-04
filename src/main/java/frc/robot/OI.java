@@ -56,12 +56,14 @@ public class OI {
         climbUp.whenReleased(new SetRobotBooleansHeld(1));
         climbDown.whenHeld(new ClimbDown());
 
+        /*
         turret0.whenActive(new TurretPosition(Constants.TURRET_0));
         turret45.whenActive(new TurretPosition(Constants.TURRET_45));
         turret90.whenActive(new TurretPosition(Constants.TURRET_90));
         turret135.whenActive(new TurretPosition(Constants.TURRET_135));
         turret180.whenActive(new TurretPosition(Constants.TURRET_180));
         turret270.whenActive(new MoveTurret());
+        */
     }
 
     public static XboxController getControllerInstant() {

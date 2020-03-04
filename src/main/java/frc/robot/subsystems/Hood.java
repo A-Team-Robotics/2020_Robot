@@ -49,18 +49,19 @@ public class Hood extends SubsystemBase {
     motor.setSensorPhase(true);
     motor.setSelectedSensorPosition(0);
     motor.clearStickyFaults();
-    motor.setNeutralMode(NeutralMode.Brake);
+    motor.setNeutralMode(NeutralMode.Coast);
 
-    motorConfig.clearPositionOnLimitR = true;
-    motor.setSensorPhase(true);
+    //motorConfig.clearPositionOnLimitR = true;
+    motor.setSensorPhase(false);
     motor.setSelectedSensorPosition(0);
-    motorConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
+    motorConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
+    motorConfig.slot0.allowableClosedloopError =10;
     motorConfig.slot0.kP = Constants.HOOD_PID_P;
     motorConfig.slot0.kI = Constants.HOOD_PID_I;
     motorConfig.slot0.kD = Constants.HOOD_PID_D;
     motorConfig.slot0.kF = Constants.HOOD_PID_F;
-    motorConfig.peakOutputForward = Constants.HOOD_SPEED;
-    motorConfig.peakOutputReverse = 0.1;
+   /* motorConfig.peakOutputForward = Constants.HOOD_SPEED;
+    motorConfig.peakOutputReverse = Constants.HOOD_SPEED;*/
 
     motor.configAllSettings(motorConfig);
   }
@@ -77,7 +78,9 @@ public class Hood extends SubsystemBase {
    * Move the hood to a specific position.
    */
   public void moveHoodPosition(double position) {
+    
     motor.set(ControlMode.Position, position);
+    //motor.set(-.3);
   }
 
   /**
@@ -132,5 +135,6 @@ public class Hood extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Hood Position", getPosition());
+    SmartDashboard.putNumber("Hood Motor Power",motor.getBusVoltage());
   }
 }

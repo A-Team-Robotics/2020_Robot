@@ -15,6 +15,8 @@ public class StartShoot extends CommandBase {
   private Intake intake;
   private VerticalIntake verticalIntake;
   private Shooter shooter;
+  private int startTime;
+  private int endTime;
   /**
    * Creates a new StartShoot.
    */
@@ -31,15 +33,33 @@ public class StartShoot extends CommandBase {
   public void initialize() {
     //Robot.shooting = true;
     intake.initialize();
+    startTime = (int) System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.spinFrontIntake();
-    intake.spinBackIntake();
     verticalIntake.spin();
     shooter.spinShooter();
+
+    if(intake.getFrontCount() >= intake.getFrontCount()) {
+      intake.spinFrontIntake();
+
+      endTime = (int) System.currentTimeMillis();
+      int difference = (int) (endTime - startTime) / 1000;
+      if(difference >= 0.4) {
+        intake.spinBackIntake();
+      }
+    }
+    else {
+      intake.spinBackIntake();
+
+      endTime = (int) System.currentTimeMillis();
+      int difference = (int) (endTime - startTime) / 1000;
+      if(difference >= 0.4) {
+        intake.spinFrontIntake();
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.

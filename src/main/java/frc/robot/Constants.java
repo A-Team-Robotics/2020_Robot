@@ -64,6 +64,9 @@ public final class Constants {
     public static final double INTAKE_SPEED = 0.75;
     public static final double INTAKE_JOG_FORWARDS_TIME = 1;
     public static final double INTAKE_JOG_BACKWARDS_TIME = 0.5;
+    public static final int INTAKE_MAX_FRONT = 2;
+    public static final int INTAKE_MAX_BACK = 2;
+    public static final int INTAKE_MAX = 4;
 
     // Vertical intake
     public static final double VERTICAL_INTAKE_SPEED = 1;
@@ -76,18 +79,19 @@ public final class Constants {
     public static final double SHOOT_ANGLE_FORGIVENESS = 1.5;
     public static final double SHOOT_DRIVE_SPEED = 0.5;
     public static final double SHOOT_AIM_SPEED = 0.2;
+    // Flywheel position 1064 at 13.94 distance.
 
     // Spinner
     public static final double SPINNER_REVOLUTION_SPEED = 0.1;
     public static final double SPINNER_COLOR_SEEK_SPEED = 0.15;
 
     // Hood
-    public static final double HOOD_SPEED = 0.2;
+    public static final double HOOD_SPEED = 1;
     public static final int HOOD_MAXIMUM_POSITION = 1216;
     public static final int HOOD_MAXIMUM_ANGLE = 45;
-    public static final double HOOD_PID_P = 1.5;
+    public static final double HOOD_PID_P = 300;
     public static final double HOOD_PID_I = 0;
-    public static final double HOOD_PID_D = 0.0999999046;
+    public static final double HOOD_PID_D = 200;
     public static final double HOOD_PID_F = 0;
 
     // Proximity Sensor

@@ -18,8 +18,8 @@ public class Intake extends SubsystemBase {
   private static Intake intake;
   private WPI_VictorSPX frontMotor;
   private WPI_VictorSPX backMotor;
-  private DigitalInput frontSwitch;
-  private DigitalInput backSwitch;
+  public DigitalInput frontSwitch;
+  public DigitalInput backSwitch;
   private boolean previousFrontSwitch;
   private boolean previousBackSwitch;
   private int frontCount;
@@ -53,9 +53,9 @@ public class Intake extends SubsystemBase {
    * Initializes all variables to startup values.
    */
   public void initialize() {
-    frontCount = 0;
-    backCount = 0;
-    totalCount = 0;
+    frontCount = -1;
+    backCount = -1;
+    totalCount = -2;
     previousFrontSwitch = false;
     previousBackSwitch = false;
   }

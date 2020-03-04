@@ -97,9 +97,8 @@ public class DriveTrain extends SubsystemBase {
   public void manualDrive(XboxController controller) {
     double x = controller.getX();
     if(x >= -0.25 && x <= 0.25) {
-      x = 0;
+      // x = 0;
     }
-    System.out.println(x);
     drive.arcadeDrive(controller.getRawAxis(1), x);
   }
 
@@ -169,16 +168,9 @@ public class DriveTrain extends SubsystemBase {
    * @return The distance travelled in inches.
    */
   public double getDistance(boolean shouldResetEncoders) {
-    /*
     if(shouldResetEncoders) {
       resetEncoders();
     }
-    */
-    /*
-    System.out.println("Left motor position - " + Math.abs(motorLeft1.getSelectedSensorPosition()));
-    System.out.println("Right motor position - " + Math.abs(motorRight1.getSelectedSensorPosition()));
-    System.out.println("Average position - " + (Math.abs(motorLeft1.getSelectedSensorPosition() + Math.abs(motorRight1.getSelectedSensorPosition()) / 2)));
-    */
     double averageSensorReading = ((Math.abs(motorLeft1.getSelectedSensorPosition()) + Math.abs(motorRight1.getSelectedSensorPosition())) / 2);
     return (averageSensorReading * 12) / Constants.ENCODER_VALUE_PER_FOOT;
   }

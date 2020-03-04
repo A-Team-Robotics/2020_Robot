@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-
+    
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -153,6 +153,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    System.out.println(intake.getBackCount() + ", " + intake.getFrontCount());
+    // hood.moveHoodPosition(1064);
     SmartDashboard.putBoolean("Turret Follow", isSeekingTurret);
     SmartDashboard.putBoolean("Spinner Revolving", spinRevolving);
     SmartDashboard.putBoolean("Spinner Finding Color", spinColoring);
@@ -199,7 +201,7 @@ public class Robot extends TimedRobot {
     if(intakeOn) new IntakeBalls().schedule();
     if(intakeFrontOn) new IntakeFront().schedule();
     if(intakeBackOn) new IntakeBack().schedule();
-    if(intakeJogOn) new IntakeJog().schedule();
+    // if(intakeJogOn) new IntakeJog().schedule();
     if(spinRevolving) {
       if(!alreadyRevolving) {
         new SpinnerRevolutions().schedule();

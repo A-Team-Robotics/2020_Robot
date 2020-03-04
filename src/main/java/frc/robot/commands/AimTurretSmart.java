@@ -98,6 +98,7 @@ public class AimTurretSmart extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     turret.stop();
+    System.out.println("Warmed up.");
   }
 
   // Returns true when the command should end.

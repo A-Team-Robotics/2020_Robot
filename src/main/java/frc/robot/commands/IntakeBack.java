@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Intake;
 
@@ -42,6 +43,14 @@ public class IntakeBack extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(intake.getBackCount() >= Constants.INTAKE_MAX_BACK) {
+      Robot.intakeBackOn = false;
+      return true;
+    }
+    if(intake.getTotalCount() >= Constants.INTAKE_MAX) {
+      Robot.intakeBackOn = false;
+      return true;
+    }
     if(!Robot.intakeBackOn) {
       return true;
     }
