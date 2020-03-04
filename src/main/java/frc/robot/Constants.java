@@ -99,7 +99,7 @@ public final class Constants {
     public static final double PROXIMITY_VOLTS_TO_DISTANCE_FEET = 100;
 
     // Climb
-    public static final double CLIMB_SPEED = 0.3;
+    public static final double CLIMB_SPEED = 1;
     public static final int CLIMB_BOTTOM_SWITCH = 6;
     public static final int CLIMB_TOP_SWITCH = 5;
 
