@@ -12,6 +12,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import frc.robot.Constants;
 
 public class Turret extends SubsystemBase {
@@ -19,6 +22,7 @@ public class Turret extends SubsystemBase {
   private WPI_TalonSRX motor;
   private DigitalInput leftTurretSwitch;
   private DigitalInput rightTurretSwitch;
+  private TalonSRXConfiguration motorConfig;
   
   /**
    * Creates a new Turret.
@@ -27,7 +31,24 @@ public class Turret extends SubsystemBase {
     motor = new WPI_TalonSRX(Constants.MOTOR_TURRET_TURN_ID);
     leftTurretSwitch = new DigitalInput(Constants.TURRET_LEFT_LIMIT);
     rightTurretSwitch = new DigitalInput(Constants.TURRET_RIGHT_LIMIT);
+    motorConfig = new TalonSRXConfiguration();
   }
+
+  public void initialize() {
+    motorConfig.clearPositionOnLimitR = true;
+    motor.setSensorPhase(true);
+    motor.setSelectedSensorPosition(0);
+    motorConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
+    motorConfig.slot0.kP = Constants.TURRET_PID_P;
+    motorConfig.slot0.kI = Constants.TURRET_PID_I;
+    motorConfig.slot0.kD = Constants.TURRET_PID_D;
+    motorConfig.slot0.kF = Constants.TURRET_PID_F;
+    motorConfig.peakOutputForward = Constants.TURRET_SPIN_SPEED;
+    motorConfig.peakOutputReverse = 0.1;
+
+    motor.configAllSettings(motorConfig);
+  }
+
   /**
    * Gets the turret object.
    * @return The turret object.
@@ -88,10 +109,27 @@ public class Turret extends SubsystemBase {
   }
 
   /**
+   * Move the turret to a specific position.
+   */
+  public void moveTurretPosition(double position) {
+    motor.set(ControlMode.Position, position);
+  }
+
+  /**
    * Reset the motor encoder.
    */
   public void resetEncoder() {
     motor.setSelectedSensorPosition(0);
+  }
+
+  public void resetEncoderLeft(){
+    motor.setSelectedSensorPosition(0);
+    motor.setSensorPhase(false);
+  }
+
+  public void resetEncoderRight(){
+    motor.setSelectedSensorPosition(0);
+    motor.setSensorPhase(true);
   }
 
   public int getPosition() {
@@ -135,6 +173,23 @@ public class Turret extends SubsystemBase {
    */
   public boolean getRightLimitSwitch() {
     return rightTurretSwitch.get();
+  }
+
+  /**
+   * Map Value Range Function
+   *
+   * <p>Calculates an output based on an input and predefined max and min of the output and the desired range of the output.
+   *
+   * @param x Source Input
+   * @param in_min Source Min
+   * @param in_max Source Max
+   * @param out_min Output Min
+   * @param out_max Source Max
+   * 
+   * @return calculated double value
+   */
+  public static double map(double x, double in_min, double in_max, double out_min, double out_max){
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   }
 
   @Override

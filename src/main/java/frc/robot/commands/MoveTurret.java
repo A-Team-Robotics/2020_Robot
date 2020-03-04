@@ -8,20 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Turret;
 
-public class MoveHood extends CommandBase {
-  private static Hood hood;
-  private int p;
+public class MoveTurret extends CommandBase {
+  private Turret turret;
   /**
-   * Creates a new MoveHood.
+   * Creates a new MoveTurret.
    */
-  public MoveHood(int position) {
+  public MoveTurret() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.hood);
-    hood = Hood.getHood();
-    p = position;
+    addRequirements(Robot.turret);
+    turret = Turret.getTurret();
   }
 
   // Called when the command is initially scheduled.
@@ -32,8 +31,10 @@ public class MoveHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double currentPosition = hood.getPosition();
-    hood.moveHoodPosition(currentPosition);
+    turret.moveTurretPosition(Turret.map(OI.getJoystickInstance().getThrottle(), -1, 1, 200, 7500)); // 200, 7500
+    if(turret.getLeftLimitSwitch() == false || Robot.turret.getRightLimitSwitch() == false) {
+      turret.stop();
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +45,6 @@ public class MoveHood extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

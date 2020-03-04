@@ -12,9 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commandGroups.*;
 import frc.robot.commands.*;
@@ -210,11 +207,15 @@ public class Robot extends TimedRobot {
       }
     }
     if(spinColoring) new SpinToColor().schedule();
-/* 
-    if(hood.getPosition() >= -50 && hood.getPosition() <= 50) {
-      hood.initialize();
+
+    if(turret.getLeftLimitSwitch() == false) {
+      turret.resetEncoderLeft();
+      turret.moveTurretPosition(200);
     }
-    */
+    if(turret.getRightLimitSwitch() == false) {
+      turret.resetEncoderRight();
+      turret.moveTurretPosition(200);
+    }
   }
 
   @Override

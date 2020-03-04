@@ -46,7 +46,17 @@ public final class Constants {
     public static final double TURRET_CENTER_SPEED = 0.15;
     public static final int TURRET_MAX_RIGHT = -13450;
     public static final int TURRET_MAX_LEFT = -TURRET_MAX_RIGHT;
+    public static final double TURRET_PID_P = 1.5;
+    public static final double TURRET_PID_I = 0;
+    public static final double TURRET_PID_D = 0.0999999046;
+    public static final double TURRET_PID_F = 0;
     public static double lastx;
+
+    public static final int TURRET_0 = 0;
+    public static final int TURRET_45 = 1900;
+    public static final int TURRET_90 = 3800;
+    public static final int TURRET_135 = 5700;
+    public static final int TURRET_180 = 7600;
 
     // Intake
     public static final int INTAKE_FRONT_LIMIT_SWITCH = 1;
@@ -75,6 +85,10 @@ public final class Constants {
     public static final double HOOD_SPEED = 0.2;
     public static final int HOOD_MAXIMUM_POSITION = 1216;
     public static final int HOOD_MAXIMUM_ANGLE = 45;
+    public static final double HOOD_PID_P = 1.5;
+    public static final double HOOD_PID_I = 0;
+    public static final double HOOD_PID_D = 0.0999999046;
+    public static final double HOOD_PID_F = 0;
 
     // Proximity Sensor
     public static final int PROXIMITY_CENSOR_ID = 2;

@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commandGroups.*;
 import frc.robot.commands.*;
 import frc.robot.Constants;
 
 public class OI {
-    private static XboxController controller = new XboxController(Constants.XBOX_CONTROLLER_PORT);;
+    private static XboxController controller = new XboxController(Constants.XBOX_CONTROLLER_PORT);
     private static Joystick joystick = new Joystick(Constants.JOYSTICK_PORT);
-    private Button buttonPOV;
 
     public JoystickButton shoot = new JoystickButton(joystick, JoystickMap.TRIGGER);
     public JoystickButton aimTurret = new JoystickButton(joystick, JoystickMap.AIM_TURRET_BUTTON);
@@ -27,9 +27,16 @@ public class OI {
     public JoystickButton intakeBack = new JoystickButton(joystick, JoystickMap.INTAKE_BACK_BUTTON);
     public JoystickButton intakeJog = new JoystickButton(joystick, JoystickMap.INTAKE_JOG_BUTTON);
     public JoystickButton spinRevolution = new JoystickButton(joystick, JoystickMap.SPINNER_REVOLVE_BUTTON);
-    public JoystickButton spinColor = new JoystickButton(joystick, JoystickMap.SPINNER_COLOR_BUTTON);
     public JoystickButton climbUp = new JoystickButton(joystick, JoystickMap.CLIMB_UP_BUTTON);
+    public JoystickButton spinColor = new JoystickButton(joystick, JoystickMap.SPINNER_COLOR_BUTTON);
     public JoystickButton climbDown = new JoystickButton(joystick, JoystickMap.CLIMB_DOWN_BUTTON);
+
+    POVButton turret0 = new POVButton(joystick, 0);
+    POVButton turret45 = new POVButton(joystick, 45);
+    POVButton turret90 = new POVButton(joystick, 90);
+    POVButton turret135 = new POVButton(joystick, 135);
+    POVButton turret180 = new POVButton(joystick, 180);
+    POVButton turret270 = new POVButton(joystick, 270);
 
     public OI() {
         shoot.whenHeld(new Shoot(), true);
@@ -48,6 +55,13 @@ public class OI {
         climbUp.whenHeld(new ClimbUp());
         climbUp.whenReleased(new SetRobotBooleansHeld(1));
         climbDown.whenHeld(new ClimbDown());
+
+        turret0.whenActive(new TurretPosition(Constants.TURRET_0));
+        turret45.whenActive(new TurretPosition(Constants.TURRET_45));
+        turret90.whenActive(new TurretPosition(Constants.TURRET_90));
+        turret135.whenActive(new TurretPosition(Constants.TURRET_135));
+        turret180.whenActive(new TurretPosition(Constants.TURRET_180));
+        turret270.whenActive(new MoveTurret());
     }
 
     public static XboxController getControllerInstant() {

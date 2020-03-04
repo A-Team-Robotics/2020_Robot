@@ -9,19 +9,24 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
 public class Hood extends SubsystemBase {
   private static Hood hood;
   private WPI_TalonSRX motor;
+  private TalonSRXConfiguration motorConfig;
   /**
    * Creates a new Hood.
    */
   public Hood() {
     motor = new WPI_TalonSRX(Constants.MOTOR_HOOD_ID);
+    motorConfig = new TalonSRXConfiguration();
     initialize();
   }
 
@@ -45,80 +50,48 @@ public class Hood extends SubsystemBase {
     motor.setSelectedSensorPosition(0);
     motor.clearStickyFaults();
     motor.setNeutralMode(NeutralMode.Brake);
-  }
 
-  /**
-   * Move the hood.
-   */
-  public void moveHood(boolean up) {
-    if(up) {
-      motor.set(Constants.HOOD_SPEED);
-    }
-    else {
-      motor.set(-Constants.HOOD_SPEED);
-    }
-  }
+    motorConfig.clearPositionOnLimitR = true;
+    motor.setSensorPhase(true);
+    motor.setSelectedSensorPosition(0);
+    motorConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
+    motorConfig.slot0.kP = Constants.HOOD_PID_P;
+    motorConfig.slot0.kI = Constants.HOOD_PID_I;
+    motorConfig.slot0.kD = Constants.HOOD_PID_D;
+    motorConfig.slot0.kF = Constants.HOOD_PID_F;
+    motorConfig.peakOutputForward = Constants.HOOD_SPEED;
+    motorConfig.peakOutputReverse = 0.1;
 
-  /**
-   * Move the hood.
-   */
-  public void moveHood(double controlSpeed) {
-    if(getPosition() > getPositionBySpeed(controlSpeed)) {
-      motor.set(-Constants.HOOD_SPEED);
-    }
-    else {
-      motor.set(Constants.HOOD_SPEED);
-    }
+    motor.configAllSettings(motorConfig);
   }
 
   /**
    * Move the hood to a specific angle.
    */
-  public void moveHood(int degrees) {
-    double currentAngle = positionToAngle(getPosition());
-    //System.out.println(currentAngle + " - " + degrees);
-
-    if(currentAngle < Constants.HOOD_MAXIMUM_ANGLE) {
-
-      if(currentAngle >= (degrees + 2)) {
-        motor.set(Constants.HOOD_SPEED);
-
-      //System.out.println("Curret sensor reading - " + motor.getSelectedSensorPosition(0) + "getting to sensor pos "+ angleToPosition(degrees));
-        //motor.set(ControlMode.Position,angleToPosition(degrees));
-      }
-      else if(currentAngle <= (degrees - 2)) {
-        motor.set(-Constants.HOOD_SPEED);
-       // System.out.println("Curret sensor reading - " + motor.getSelectedSensorPosition(0) + "getting to sensor pos "+ angleToPosition(degrees));
-        //motor.set(ControlMode.Position,angleToPosition(degrees));
-      }
-      else {
-        stop();
-      }
-    }
-    else {
-      stop();
-    }
+  public void moveHood(double degrees) {
+    double position = angleToPosition(degrees);
+    moveHoodPosition(position);
   }
 
-  public void HoldPos(){
-    System.out.println("Holding pos - " + motor.getSelectedSensorPosition(0) + "the motor voltage is " + motor.getBusVoltage());
-    ;
-    motor.set(ControlMode.Disabled,0.0);
-    //motor.set(ControlMode.Position,motor.getSelectedSensorPosition(0));
+  /**
+   * Move the hood to a specific position.
+   */
+  public void moveHoodPosition(double position) {
+    motor.set(ControlMode.Position, position);
   }
 
   /**
    * Converts the censor position to an angle in degrees.
    * @return The angle in degrees.
    */
-  public double positionToAngle(int pos) {
+  public double positionToAngle(double pos) {
     if(pos == 0) {
       return 0;
     }
     return (pos * Constants.HOOD_MAXIMUM_ANGLE) / Constants.HOOD_MAXIMUM_POSITION;
   }
 
-  public double angleToPosition(int angle) {
+  public double angleToPosition(double angle) {
     return (angle * Constants.HOOD_MAXIMUM_POSITION) / Constants.HOOD_MAXIMUM_ANGLE;
   }
 
@@ -158,5 +131,6 @@ public class Hood extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Hood Position", getPosition());
   }
 }
