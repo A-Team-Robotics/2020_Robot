@@ -16,6 +16,8 @@ import frc.robot.subsystems.DriveTrain;
 public class IntakeBalls extends CommandBase {
   private Intake intake;
   private DriveTrain drive;
+  private boolean spinFront;
+  private boolean spinBack;
   /**
    * Creates a new IntakeBalls.
    */
@@ -34,12 +36,30 @@ public class IntakeBalls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(intake.getFrontCount() >= Constants.INTAKE_MAX_FRONT) {
+      spinFront = false;
+    }
+    else {
+      spinFront = true;
+    }
+
+    if(intake.getBackCount() >= Constants.INTAKE_MAX_BACK) {
+      spinBack = false;
+    }
+    else {
+      spinBack = true;
+    }
+
     if(drive.getVelocity() > 0) {
-      intake.spinFrontIntake();
+      if(spinFront) {
+        intake.spinFrontIntake();
+      }
       intake.brakeBack();
     }
     else if(drive.getVelocity() < 0) {
-      intake.spinBackIntake();
+      if(spinBack) {
+        intake.spinBackIntake();
+      }
       intake.brakeFront();
     }
 
@@ -59,7 +79,7 @@ public class IntakeBalls extends CommandBase {
       return true;
     }
 
-    if(intake.getFrontCount() >= 3 || intake.getBackCount() >= 3 || intake.getTotalCount() >= 5) {
+    if(intake.getTotalCount() >= Constants.INTAKE_MAX) {
       return true;
     }
 

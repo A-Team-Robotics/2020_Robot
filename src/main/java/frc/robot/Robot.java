@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.    
+    // autonomous chooser on the dashboard.
     driveTrain = DriveTrain.getDriveTrain();
     limelight = Camera.getCamera();
     turret = Turret.getTurret();
@@ -153,8 +153,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    System.out.println(intake.getBackCount() + ", " + intake.getFrontCount());
-    // hood.moveHoodPosition(1064);
     SmartDashboard.putBoolean("Turret Follow", isSeekingTurret);
     SmartDashboard.putBoolean("Spinner Revolving", spinRevolving);
     SmartDashboard.putBoolean("Spinner Finding Color", spinColoring);

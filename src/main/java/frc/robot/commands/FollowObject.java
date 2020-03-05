@@ -81,7 +81,7 @@ public class FollowObject extends CommandBase {
       driveForward = false;
     }
 
-    if(!driveForward) {
+    if(driveForward) {
       moveSpeed *= -1;
     }
 

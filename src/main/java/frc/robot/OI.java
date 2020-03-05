@@ -30,6 +30,7 @@ public class OI {
     public JoystickButton climbUp = new JoystickButton(joystick, JoystickMap.CLIMB_UP_BUTTON);
     public JoystickButton spinColor = new JoystickButton(joystick, JoystickMap.SPINNER_COLOR_BUTTON);
     public JoystickButton climbDown = new JoystickButton(joystick, JoystickMap.CLIMB_DOWN_BUTTON);
+    public JoystickButton declogIntake = new JoystickButton(joystick, JoystickMap.INTAKE_DECLOG);
 
     POVButton turret0 = new POVButton(joystick, 0);
     POVButton turret45 = new POVButton(joystick, 45);
@@ -44,10 +45,11 @@ public class OI {
 
         aimTurret.whenPressed(new SetRobotBooleans(0));
 
-        intake.whenPressed(new SetRobotBooleans(1));
+        // intake.whenPressed(new SetRobotBooleans(1));
         intakeFront.whenPressed(new SetRobotBooleans(2));
         intakeBack.whenPressed(new SetRobotBooleans(3));
-        intakeJog.whenPressed(new SetRobotBooleans(6));
+        declogIntake.whenPressed(new IntakeDeclog());
+        // intakeJog.whenPressed(new SetRobotBooleans(6));
 
         spinRevolution.whenPressed(new SetRobotBooleans(4));
         spinColor.whenPressed(new SetRobotBooleans(5));

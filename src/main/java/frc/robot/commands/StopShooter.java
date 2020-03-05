@@ -15,15 +15,17 @@ public class StopShooter extends CommandBase {
   private Shooter shooter;
   private Intake intake;
   private VerticalIntake verticalIntake;
+  private Hood hood;
   /**
    * Creates a new StopShooter.
    */
   public StopShooter() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.shooter, Robot.intake, Robot.verticalIntake);
+    addRequirements(Robot.shooter, Robot.intake, Robot.verticalIntake, Robot.hood);
     shooter = Shooter.getShooter();
     intake = Intake.getIntake();
     verticalIntake = VerticalIntake.getVerticalIntake();
+    hood = Hood.getHood();
   }
 
   // Called when the command is initially scheduled.
@@ -34,6 +36,7 @@ public class StopShooter extends CommandBase {
     intake.brakeBack();
     intake.brakeFront();
     verticalIntake.brake();
+    hood.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

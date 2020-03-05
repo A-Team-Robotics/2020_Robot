@@ -39,7 +39,7 @@ public final class Constants {
     public static final int TURRET_LEFT_LIMIT = 3;
     public static final int TURRET_RIGHT_LIMIT = 4;
     public static final double TURRET_AIM_SPEED = 0.5;
-    public static final double TURRET_AIM_SPEED_SLOW = 0.15;
+    public static final double TURRET_AIM_SPEED_SLOW = 0.25;
     public static final double TURRET_AIM_CLOSE = 7.0;
     public static final double TURRET_SPAN = -4422 + 3348;
     public static final double TURRET_CENTER_SPEED_FAST = 0.55;
@@ -61,7 +61,7 @@ public final class Constants {
     // Intake
     public static final int INTAKE_FRONT_LIMIT_SWITCH = 1;
     public static final int INTAKE_BACK_LIMIT_SWITCH = 0;
-    public static final double INTAKE_SPEED = 0.75;
+    public static final double INTAKE_SPEED = 1;
     public static final double INTAKE_JOG_FORWARDS_TIME = 1;
     public static final double INTAKE_JOG_BACKWARDS_TIME = 0.5;
     public static final int INTAKE_MAX_FRONT = 2;
@@ -79,19 +79,22 @@ public final class Constants {
     public static final double SHOOT_ANGLE_FORGIVENESS = 1.5;
     public static final double SHOOT_DRIVE_SPEED = 0.5;
     public static final double SHOOT_AIM_SPEED = 0.2;
-    // Flywheel position 1064 at 13.94 distance.
+    public static final double SHOOTING_DISTANCE = 13.94;
+    // Flywheel position -1064 at 13.94 distance.
 
     // Spinner
     public static final double SPINNER_REVOLUTION_SPEED = 0.1;
     public static final double SPINNER_COLOR_SEEK_SPEED = 0.15;
 
     // Hood
-    public static final double HOOD_SPEED = 1;
+    public static final double HOOD_SPEED = 0.3;
     public static final int HOOD_MAXIMUM_POSITION = 1216;
     public static final int HOOD_MAXIMUM_ANGLE = 45;
-    public static final double HOOD_PID_P = 300;
+    public static final double HOOD_SHOOT_POSITION = -964;
+    public static final double HOOD_POSITION_FORGIVENESS = 4;
+    public static final double HOOD_PID_P = 5;
     public static final double HOOD_PID_I = 0;
-    public static final double HOOD_PID_D = 200;
+    public static final double HOOD_PID_D = 30;
     public static final double HOOD_PID_F = 0;
 
     // Proximity Sensor
@@ -145,11 +148,11 @@ public final class Constants {
     public static final double LIMELIGHT_X_CENTER_SPEED = 0.51;
     public static final double LIMELIGHT_FOLLOW_SPEED = 0.55;
     public static final double LIMELIGHT_FAST_FOLLOW_SPEED = 0.65;
-    public static final double LIMELIGHT_SLOW_FOLLOW_SPEED = 0.5;
-    public static final double LIMELIGHT_SLOTH_FOLLOW_SPEED = 0.46;
+    public static final double LIMELIGHT_SLOW_FOLLOW_SPEED = 0.52;
+    public static final double LIMELIGHT_SLOTH_FOLLOW_SPEED = 0.48;
     public static final double LIMELIGHT_FOCAL_LENGTH = 2.9272791257541;
     public static final double LIMELIGHT_SEEK_SPEED = 0.6;
-    public static final double LIMELIGHT_DISTANCE_ACCEPTABLE = 0.01;
+    public static final double LIMELIGHT_DISTANCE_ACCEPTABLE = 0.1;
     public static final double LIMELIGHT_MINIMUM_VIEWABLE_AREA = 0.38;
     public static final double LIMELIGHT_DEGREES_RELATIVE_TO_GROUND = 13;
     public static final double K = 14.666666666666667 * Math.sqrt(1.723);

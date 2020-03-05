@@ -21,4 +21,5 @@ public class JoystickMap {
     public static final int SPINNER_COLOR_BUTTON = 12;
     public static final int CLIMB_UP_BUTTON = 10;
     public static final int CLIMB_DOWN_BUTTON = 9;
+    public static final int INTAKE_DECLOG = 7;
 }

@@ -184,6 +184,8 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake Balls", totalCount);
+    SmartDashboard.putNumber("Back Motor Power", backMotor.getBusVoltage());
+    SmartDashboard.putNumber("Front Motor Power", frontMotor.getBusVoltage());
     incrementCounts();
     previousFrontSwitch = getFrontLimitSwitch();
     previousBackSwitch = getBackLimitSwitch();
