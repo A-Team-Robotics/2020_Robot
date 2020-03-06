@@ -124,7 +124,7 @@ public class Hood extends SubsystemBase {
    * Stops the hood from moving.
    */
   public void stop() {
-    motor.set(-0.03);
+    motor.set(ControlMode.Disabled,0);
   }
 
   /**
