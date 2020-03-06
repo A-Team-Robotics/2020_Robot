@@ -8,19 +8,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.Turret;
 
 public class MoveTurret extends CommandBase {
   private Turret turret;
+  private int pos;
   /**
    * Creates a new MoveTurret.
    */
-  public MoveTurret() {
+  public MoveTurret(int position) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.turret);
     turret = Turret.getTurret();
+    pos = position;
   }
 
   // Called when the command is initially scheduled.
@@ -31,20 +34,26 @@ public class MoveTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret.moveTurretPosition(Turret.map(OI.getJoystickInstance().getThrottle(), -1, 1, 200, 7500)); // 200, 7500
-    if(turret.getLeftLimitSwitch() == false || Robot.turret.getRightLimitSwitch() == false) {
-      turret.stop();
+    if(turret.getPosition() < pos) {
+      turret.turn(Constants.TURRET_SPIN_SPEED);
+    }
+    else {
+      turret.turn(-Constants.TURRET_SPIN_SPEED);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    turret.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if(turret.getPosition() >= (pos - Constants.TURRET_POSITION_FORGIVENESS) && turret.getPosition() <= (pos + Constants.TURRET_POSITION_FORGIVENESS)) {
+      return true;
+    }
+    return false;
   }
 }

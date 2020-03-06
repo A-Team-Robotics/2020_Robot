@@ -20,6 +20,6 @@ public class Shoot extends SequentialCommandGroup {
   public Shoot() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new SetupShooter(), new SetupDriveToShoot(), new StartShoot());
+    super(new SetupShooter(), new SetupDriveToShoot(), new StartShoot(false));
   }
 }

@@ -36,6 +36,8 @@ public final class Constants {
 
     // Turret
     public static final double TURRET_SPIN_SPEED = 0.6;
+    public static final double TURRET_SPIN_CLIMB = 0.9;
+    public static final double TURRET_POSITION_FORGIVENESS = 60;
     public static final int TURRET_LEFT_LIMIT = 3;
     public static final int TURRET_RIGHT_LIMIT = 4;
     public static final double TURRET_AIM_SPEED = 0.5;
@@ -44,12 +46,13 @@ public final class Constants {
     public static final double TURRET_SPAN = -4422 + 3348;
     public static final double TURRET_CENTER_SPEED_FAST = 0.55;
     public static final double TURRET_CENTER_SPEED = 0.15;
-    public static final int TURRET_MAX_RIGHT = -13450;
-    public static final int TURRET_MAX_LEFT = -TURRET_MAX_RIGHT;
+    public static final int TURRET_MAX_RIGHT = -15000;
+    public static final int TURRET_MAX_LEFT = 13000;
     public static final double TURRET_PID_P = 1.5;
     public static final double TURRET_PID_I = 0;
     public static final double TURRET_PID_D = 0.0999999046;
     public static final double TURRET_PID_F = 0;
+    public static final double DRIVE_AIM_TURRET = 0.5;
     public static double lastx;
 
     public static final int TURRET_0 = 0;
@@ -83,15 +86,15 @@ public final class Constants {
     // Flywheel position -1064 at 13.94 distance.
 
     // Spinner
-    public static final double SPINNER_REVOLUTION_SPEED = 0.1;
+    public static final double SPINNER_REVOLUTION_SPEED = 0.2;
     public static final double SPINNER_COLOR_SEEK_SPEED = 0.15;
 
     // Hood
     public static final double HOOD_SPEED = 0.3;
     public static final int HOOD_MAXIMUM_POSITION = 1216;
     public static final int HOOD_MAXIMUM_ANGLE = 45;
-    public static final double HOOD_SHOOT_POSITION = -964;
-    public static final double HOOD_POSITION_FORGIVENESS = 4;
+    public static final double HOOD_SHOOT_POSITION = -1004;
+    public static final double HOOD_POSITION_FORGIVENESS = 6;
     public static final double HOOD_PID_P = 5;
     public static final double HOOD_PID_I = 0;
     public static final double HOOD_PID_D = 30;
@@ -125,9 +128,9 @@ public final class Constants {
 
     // Auto drive.
     public static final double AUTO_DRIVE_SPEED = 0.9;
-    public static final double AUTO_DRIVE_SLOW_SPEED = 0.55;
+    public static final double AUTO_DRIVE_SLOW_SPEED = 0.5;
     public static final double MOTOR_DELAY_STOP = 0.1;
-    public static final double AUTO_TURN_SPEED = 0.7;
+    public static final double AUTO_TURN_SPEED = 0.6;
     public static final double AUTO_STOP_DELAY_SECONDS = 0.5;
     
     // Controllers.

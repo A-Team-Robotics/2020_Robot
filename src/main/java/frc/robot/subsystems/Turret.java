@@ -35,18 +35,7 @@ public class Turret extends SubsystemBase {
   }
 
   public void initialize() {
-    motorConfig.clearPositionOnLimitR = true;
-    motor.setSensorPhase(true);
-    motor.setSelectedSensorPosition(0);
-    motorConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
-    motorConfig.slot0.kP = Constants.TURRET_PID_P;
-    motorConfig.slot0.kI = Constants.TURRET_PID_I;
-    motorConfig.slot0.kD = Constants.TURRET_PID_D;
-    motorConfig.slot0.kF = Constants.TURRET_PID_F;
-    motorConfig.peakOutputForward = Constants.TURRET_SPIN_SPEED;
-    motorConfig.peakOutputReverse = 0.1;
-
-    motor.configAllSettings(motorConfig);
+    motor.configFactoryDefault();
   }
 
   /**
@@ -141,10 +130,10 @@ public class Turret extends SubsystemBase {
    * @param controller The Xbox Controller.
    */
   public void turnTurret(XboxController controller) {
-    if(controller.getYButton() && getRightLimitSwitch()) {
+    if(controller.getYButton()) {
       turn(-Constants.TURRET_SPIN_SPEED);
     }
-    else if(controller.getXButton() && getLeftLimitSwitch()) {
+    else if(controller.getXButton()) {
       turn(Constants.TURRET_SPIN_SPEED);
     }
     else {
@@ -195,5 +184,11 @@ public class Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if(!getLeftLimitSwitch()) {
+      motor.setSelectedSensorPosition(Constants.TURRET_MAX_LEFT);
+    }
+    if(!getRightLimitSwitch()) {
+      motor.setSelectedSensorPosition(Constants.TURRET_MAX_RIGHT);
+    }
   }
 }

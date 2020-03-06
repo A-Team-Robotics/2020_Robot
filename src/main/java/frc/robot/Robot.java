@@ -133,6 +133,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    limelight.turnOnLED();
     // System.out.println("Total Distance Travelled: " + driveTrain.getDistance(false));
   }
 
@@ -207,15 +208,6 @@ public class Robot extends TimedRobot {
       }
     }
     if(spinColoring) new SpinToColor().schedule();
-
-    if(turret.getLeftLimitSwitch() == false) {
-      turret.resetEncoderLeft();
-      turret.moveTurretPosition(200);
-    }
-    if(turret.getRightLimitSwitch() == false) {
-      turret.resetEncoderRight();
-      turret.moveTurretPosition(200);
-    }
   }
 
   @Override

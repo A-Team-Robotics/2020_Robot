@@ -17,15 +17,17 @@ public class StartShoot extends CommandBase {
   private Shooter shooter;
   private int startTime;
   private int endTime;
+  private boolean a;
   /**
    * Creates a new StartShoot.
    */
-  public StartShoot() {
+  public StartShoot(boolean auto) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.shooter, Robot.intake, Robot.verticalIntake);
     intake = Intake.getIntake();
     verticalIntake = VerticalIntake.getVerticalIntake();
     shooter = Shooter.getShooter();
+    a = auto;
   }
 
   // Called when the command is initially scheduled.
@@ -73,6 +75,13 @@ public class StartShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(a) {
+      endTime = (int) System.currentTimeMillis();
+      int difference = (int) (endTime - startTime) / 1000;
+      if(difference >= 2) {
+        return true;
+      }
+    }
     return false;
   }
 }

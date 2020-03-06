@@ -11,11 +11,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Turret;
 
 public class AimTurretSmart extends CommandBase {
   private Camera camera;
   private Turret turret;
+  private DriveTrain drive;
   private double x;
   private double lastx;
   private boolean tac;
@@ -24,9 +26,10 @@ public class AimTurretSmart extends CommandBase {
    */
   public AimTurretSmart(boolean trackAndCenter) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.turret, Robot.limelight);
+    addRequirements(Robot.turret, Robot.limelight, Robot.driveTrain);
     turret = Turret.getTurret();
     camera = Camera.getCamera();
+    drive = DriveTrain.getDriveTrain();
     tac = trackAndCenter;
   }
 
@@ -44,47 +47,67 @@ public class AimTurretSmart extends CommandBase {
   public void execute() {
     x = camera.getX();
     if(x > 0) {
-      if(x <= Constants.TURRET_AIM_CLOSE) {
-        if(x <= Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
-          turret.stop();
-        }
-        else {
-          turret.turn(-Constants.TURRET_AIM_SPEED_SLOW);
-        }
+      if(turret.getPosition() <= Constants.TURRET_MAX_RIGHT) {
+        drive.autoDrive(0, Constants.DRIVE_AIM_TURRET);
       }
       else {
-        if(x <= Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
-          turret.stop();
+        if(x <= Constants.TURRET_AIM_CLOSE) {
+          if(x <= Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+            turret.stop();
+          }
+          else {
+            turret.turn(-Constants.TURRET_AIM_SPEED_SLOW);
+          }
         }
         else {
-          turret.turn(-Constants.TURRET_AIM_SPEED);
+          if(x <= Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+            turret.stop();
+          }
+          else {
+            turret.turn(-Constants.TURRET_AIM_SPEED);
+          }
         }
       }
     }
     else if(x < 0) {
-      if(x >= -Constants.TURRET_AIM_CLOSE) {
-        if(x >= -Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
-          turret.stop();
-        }
-        else {
-          turret.turn(Constants.TURRET_AIM_SPEED_SLOW);
-        }
+      if(turret.getPosition() >= Constants.TURRET_MAX_LEFT) {
+        drive.autoDrive(0, -Constants.DRIVE_AIM_TURRET);
       }
       else {
-        if(x >= -Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
-          turret.stop();
+        if(x >= -Constants.TURRET_AIM_CLOSE) {
+          if(x >= -Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+            turret.stop();
+          }
+          else {
+            turret.turn(Constants.TURRET_AIM_SPEED_SLOW);
+          }
         }
         else {
-          turret.turn(Constants.TURRET_AIM_SPEED);
+          if(x >= -Constants.LIMELIGHT_X_TURRET_FORGIVENESS) {
+            turret.stop();
+          }
+          else {
+            turret.turn(Constants.TURRET_AIM_SPEED);
+          }
         }
       }
     }
     else {
       if(lastx > 0) {
-        turret.turn(-Constants.TURRET_AIM_SPEED);
+        if(turret.getPosition() <= Constants.TURRET_MAX_RIGHT) {
+          drive.autoDrive(0, Constants.DRIVE_AIM_TURRET);
+        }
+        else {
+          turret.turn(-Constants.TURRET_AIM_SPEED);
+        }
       }
       else {
-        turret.turn(Constants.TURRET_AIM_SPEED);
+        if(turret.getPosition() >= Constants.TURRET_MAX_LEFT) {
+          drive.autoDrive(0, -Constants.DRIVE_AIM_TURRET);
+        }
+        else {
+          turret.turn(Constants.TURRET_AIM_SPEED);
+        }
       }
     }
 

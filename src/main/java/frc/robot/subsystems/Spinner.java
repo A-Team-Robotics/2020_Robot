@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -59,15 +60,13 @@ public class Spinner extends SubsystemBase {
    * Stops the motor dead in its tracks.
    */
   public void brake() {
+    motor.set(-0.1);
+    Timer.delay(0.5);
     motor.set(0);
   }
 
-  public double getCensorVoltage() {
-    return proximityCensor.getVoltage();
-  }
-
   public double getCensorReading() {
-    return getCensorVoltage() * Constants.PROXIMITY_VOLTS_TO_DISTANCE_FEET;
+    return proximityCensor.getAverageVoltage();
   }
 
   @Override

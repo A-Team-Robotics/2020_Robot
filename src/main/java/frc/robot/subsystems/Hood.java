@@ -41,6 +41,10 @@ public class Hood extends SubsystemBase {
     return hood;
   }
 
+  public void resetSensor() {
+    motor.setSelectedSensorPosition(0);
+  }
+
   /**
    * Initialize the hood. Set it to zero.
    */

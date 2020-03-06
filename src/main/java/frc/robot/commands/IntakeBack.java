@@ -14,6 +14,8 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeBack extends CommandBase {
   private Intake intake;
+  private boolean pickedUpBall;
+  private boolean initialTrue;
   /**
    * Creates a new IntakeFront.
    */
@@ -26,18 +28,31 @@ public class IntakeBack extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    pickedUpBall = false;
+    if(intake.getBackLimitSwitch()) {
+      initialTrue = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     intake.spinBackIntake();
+    if(!intake.getBackLimitSwitch()) {
+      initialTrue = false;
+    }
+    if(intake.getBackLimitSwitch() && !initialTrue) {
+      pickedUpBall = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intake.brakeBack();
+    if(pickedUpBall) {
+      Robot.intakeBackOn = false;
+    }
   }
 
   // Returns true when the command should end.
@@ -49,6 +64,9 @@ public class IntakeBack extends CommandBase {
     }
     if(intake.getTotalCount() >= Constants.INTAKE_MAX) {
       Robot.intakeBackOn = false;
+      return true;
+    }
+    if(pickedUpBall) {
       return true;
     }
     if(!Robot.intakeBackOn) {

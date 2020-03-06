@@ -11,16 +11,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Turret;
 
 public class ClimbUp extends CommandBase {
   private Climb climb;
+  private Turret turret;
   /**
    * Creates a new ClimbUp.
    */
   public ClimbUp() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.climb);
+    addRequirements(Robot.climb, Robot.turret);
     climb = Climb.getClimb();
+    turret = Turret.getTurret();
   }
 
   // Called when the command is initially scheduled.
@@ -35,6 +38,7 @@ public class ClimbUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    turret.moveTurretPosition(-3000);
     climb.climbUp();
   }
 

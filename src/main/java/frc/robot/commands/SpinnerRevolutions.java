@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Spinner;
@@ -40,6 +41,9 @@ public class SpinnerRevolutions extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(colorStart.equals(Constants.COLOR_NODETECT)) {
+      colorStart = colorSensor.getMatchedColor();
+    }
     spinner.spinRevolutions();
     String currentColor = colorSensor.getMatchedColor();
     if(currentColor.equals(colorStart)) {
@@ -50,10 +54,11 @@ public class SpinnerRevolutions extends CommandBase {
     previousColor = currentColor;
 
     System.out.println(colorStart + " - " + currentColor + ": " + numDetects);
-
-    if(spinner.getCensorReading() != 0 || spinner.getCensorReading() != Double.NaN) {
+    /*
+    if(spinner.getCensorReading()) {
       numBolts++;
     }
+    */
   }
 
   // Called once the command ends or is interrupted.

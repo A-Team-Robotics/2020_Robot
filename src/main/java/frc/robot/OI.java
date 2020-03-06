@@ -21,7 +21,7 @@ public class OI {
     private static Joystick joystick = new Joystick(Constants.JOYSTICK_PORT);
 
     public JoystickButton shoot = new JoystickButton(joystick, JoystickMap.TRIGGER);
-    public JoystickButton aimTurret = new JoystickButton(joystick, JoystickMap.AIM_TURRET_BUTTON);
+    public JoystickButton manualShoot = new JoystickButton(joystick, JoystickMap.MANUAL_SHOOT);
     public JoystickButton intake = new JoystickButton(joystick, JoystickMap.INTAKE_BUTTON);
     public JoystickButton intakeFront = new JoystickButton(joystick, JoystickMap.INTAKE_FRONT_BUTTON);
     public JoystickButton intakeBack = new JoystickButton(joystick, JoystickMap.INTAKE_BACK_BUTTON);
@@ -43,7 +43,8 @@ public class OI {
         shoot.whenHeld(new Shoot(), true);
         shoot.whenReleased(new StopShooter());
 
-        aimTurret.whenPressed(new SetRobotBooleans(0));
+        manualShoot.whenHeld(new ShootManual(), true);
+        manualShoot.whenReleased(new StopShooter());
 
         // intake.whenPressed(new SetRobotBooleans(1));
         intakeFront.whenPressed(new SetRobotBooleans(2));
@@ -54,7 +55,7 @@ public class OI {
         spinRevolution.whenPressed(new SetRobotBooleans(4));
         spinColor.whenPressed(new SetRobotBooleans(5));
 
-        climbUp.whenHeld(new ClimbUp());
+        climbUp.whenHeld(new StartClimbUp());
         climbUp.whenReleased(new SetRobotBooleansHeld(1));
         climbDown.whenHeld(new ClimbDown());
         climbDown.whenReleased(new SetRobotBooleansHeld(2));
