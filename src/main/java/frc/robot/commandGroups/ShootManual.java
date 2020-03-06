@@ -8,6 +8,7 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.*;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -20,6 +21,6 @@ public class ShootManual extends SequentialCommandGroup {
   public ShootManual() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new WarmUpShooter(), new StartShoot(false));
+    super(new WarmUpShooter(), new HoodShootPosition(Constants.HOOD_MANUAL_POSITION),  new StartShoot(false));
   }
 }

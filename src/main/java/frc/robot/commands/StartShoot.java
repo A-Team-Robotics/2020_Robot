@@ -68,6 +68,7 @@ public class StartShoot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     if(interrupted) {
+      intake.initialize();
       new StopShooter();
     }
   }

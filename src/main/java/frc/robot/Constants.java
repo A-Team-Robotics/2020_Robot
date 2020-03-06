@@ -94,6 +94,7 @@ public final class Constants {
     public static final int HOOD_MAXIMUM_POSITION = 1216;
     public static final int HOOD_MAXIMUM_ANGLE = 45;
     public static final double HOOD_SHOOT_POSITION = -1004;
+    public static final double HOOD_MANUAL_POSITION = -204;
     public static final double HOOD_POSITION_FORGIVENESS = 6;
     public static final double HOOD_PID_P = 5;
     public static final double HOOD_PID_I = 0;
